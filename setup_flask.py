@@ -12,8 +12,8 @@ def hello_world():
 @app.route("/scrape")
 def start_scraping():
     try:
-        scrape.scrape_immobiliare()
-        return jsonify({"message": "Scraping completed successfully."})
+        toRet = scrape.scrape_immobiliare()
+        return jsonify(toRet)
     except Exception as e:
         return jsonify({"error": str(e)})
-    
+      

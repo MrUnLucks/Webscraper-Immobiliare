@@ -62,8 +62,5 @@ def scrape_immobiliare():
     for i in range(pages_to_scrape):
         scrape_website(f'https://www.immobiliare.it/affitto-case/padova-provincia/?criterio=rilevanza&prezzoMassimo=900&localiMinimo=3&pag={i}')
     differentItems = compare_ids()
-    print(differentItems)
     write_to_file()
     return differentItems
-
-scrape_immobiliare()
