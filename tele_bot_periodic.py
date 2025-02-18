@@ -1,8 +1,12 @@
 from telegram.ext import Application, CommandHandler, ContextTypes, JobQueue
 from telegram import Update
 import requests
+import os
+from dotenv import load_dotenv
 
-TOKEN = '6961180807:AAFm6rvsR8OkZhjg90re_Nvho7jOTbxFz4U'
+load_dotenv()
+
+TELEGRAM_TOKEN = os.getenv('TOKEN')
 
 async def alarm(context: ContextTypes.DEFAULT_TYPE) -> None:
     job = context.job
@@ -21,7 +25,7 @@ async def set_timer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await update.effective_message.reply_text("Error Gang")
 
 def main() -> None:
-    application = Application.builder().token(TOKEN).build()
+    application = Application.builder().token(TELEGRAM_TOKEN).build()
     application.add_handler(CommandHandler("set", set_timer))
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
