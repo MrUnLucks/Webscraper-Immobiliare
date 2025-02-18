@@ -1,6 +1,7 @@
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
-
+from dotenv import load_dotenv
+import os
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Hi Use /set <seconds> to set a timer")
@@ -39,9 +40,10 @@ async def unset(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     text = "Timer successfully cancelled!" if job_removed else "You have no active timer."
     await update.message.reply_text(text)
 
-TOKEN = '6961180807:AAFm6rvsR8OkZhjg90re_Nvho7jOTbxFz4U'
+load_dotenv()
+TELEGRAM_TOKEN = os.getenv('TOKEN')
 def main() -> None:
-    application = Application.builder().token(TOKEN).build()
+    application = Application.builder().token(TELEGRAM_TOKEN).build()
     application.add_handler(CommandHandler(["start", "help"], start))
     application.add_handler(CommandHandler("set", set_timer))
     application.add_handler(CommandHandler("unset", unset))
